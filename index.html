@@ -32,7 +32,6 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ======= AURORA BACKGROUND ======= */
 .aurora {
   position: fixed;
   inset: 0;
@@ -73,7 +72,6 @@ html, body {
 @keyframes drift2 { from { transform: translate(0,0) scale(1); } to { transform: translate(-8vw, -5vh) scale(1.15); } }
 @keyframes drift3 { from { transform: translate(0,0) scale(1); } to { transform: translate(-4vw, 6vh) scale(0.9); } }
 
-/* noise overlay */
 .aurora::after {
   content: '';
   position: absolute; inset: 0;
@@ -82,7 +80,6 @@ html, body {
   pointer-events: none;
 }
 
-/* ======= LAYOUT ======= */
 .page {
   position: relative;
   z-index: 10;
@@ -102,7 +99,6 @@ html, body {
   gap: 0;
 }
 
-/* ======= HEADER ======= */
 .header {
   display: flex;
   flex-direction: column;
@@ -134,7 +130,6 @@ html, body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Avatar */
 .avatar-wrap {
   position: relative;
   margin-bottom: 1.4rem;
@@ -146,7 +141,6 @@ html, body {
   padding: 2px;
   background: conic-gradient(var(--accent), var(--accent2), var(--accent3), var(--accent));
   animation: spin-ring 4s linear infinite;
-  border-radius: 50%;
 }
 .avatar-ring-outer::before {
   content: '';
@@ -166,10 +160,7 @@ html, body {
   display: flex; align-items: center; justify-content: center;
   z-index: 1;
 }
-.avatar img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-}
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
 .avatar .fallback {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 2.8rem;
@@ -208,7 +199,6 @@ html, body {
 .badge-cyan { border-color: var(--accent); color: var(--accent); }
 .badge-pink { border-color: var(--accent2); color: var(--accent2); }
 
-/* ======= LINKS BLOCK ======= */
 .links-block {
   display: flex;
   flex-direction: column;
@@ -268,9 +258,9 @@ html, body {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.ib-tiktok  { background: rgba(255,107,248,0.12); color: #FF6BF8; border-color: rgba(255,107,248,0.2); }
-.ib-insta   { background: rgba(255,138,76,0.12);  color: #FF8A4C; border-color: rgba(255,138,76,0.2); }
-.ib-yt      { background: rgba(255,70,70,0.12);   color: #FF4646; border-color: rgba(255,70,70,0.2); }
+.ib-tiktok { background: rgba(255,107,248,0.12); color: #FF6BF8; border-color: rgba(255,107,248,0.2); }
+.ib-insta  { background: rgba(255,138,76,0.12);  color: #FF8A4C; border-color: rgba(255,138,76,0.2); }
+.ib-pro    { background: rgba(125,249,255,0.12); color: #7DF9FF; border-color: rgba(125,249,255,0.2); }
 
 .link-text { flex: 1; }
 .link-label {
@@ -294,7 +284,19 @@ html, body {
 .link-chevron svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .link-item:hover .link-chevron { opacity: 0.8; transform: translateX(4px); }
 
-/* ======= FOOTER BLOCK ======= */
+/* Subtle shimmer on the pro button */
+.link-item.pro-item {
+  position: relative;
+}
+.link-item.pro-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.4;
+}
+
 .footer-block {
   background: var(--glass);
   border: 1px solid var(--glass-border);
@@ -362,7 +364,6 @@ html, body {
   color: rgba(240,238,232,0.2);
 }
 
-/* ======= FLOATING ORBS ======= */
 .orb {
   position: fixed;
   border-radius: 50%;
@@ -411,7 +412,7 @@ html, body {
     <div class="links-block">
       <a href="https://www.tiktok.com/@louisnny" target="_blank" rel="noopener" class="link-item">
         <div class="link-icon-box ib-tiktok">
-          <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
             <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.41a8.16 8.16 0 0 0 4.77 1.52V7.48a4.85 4.85 0 0 1-1-.79z"/>
           </svg>
         </div>
@@ -437,16 +438,20 @@ html, body {
         <div class="link-chevron"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
       </a>
 
-      <a href="https://www.youtube.com/@Louisnny" target="_blank" rel="noopener" class="link-item">
-        <div class="link-icon-box ib-yt">
+      <!-- CONTACT PRO (remplace YouTube) -->
+      <a href="contact.html" class="link-item pro-item">
+        <div class="link-icon-box ib-pro">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/>
-            <path d="m10 15 5-3-5-3z" fill="currentColor" stroke="none"/>
+            <rect x="2" y="7" width="20" height="14" rx="2"/>
+            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+            <line x1="12" y1="12" x2="12" y2="12.01"/>
+            <path d="M8 12h.01M16 12h.01"/>
+            <path d="M12 16v-4"/>
           </svg>
         </div>
         <div class="link-text">
-          <span class="link-label">YouTube</span>
-          <span class="link-sub">@Louisnny</span>
+          <span class="link-label">Contact Professionnel</span>
+          <span class="link-sub">Partenariats &amp; collaborations</span>
         </div>
         <div class="link-chevron"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
       </a>
@@ -459,9 +464,9 @@ html, body {
           <div class="discord-label">Discord</div>
           <div class="discord-sub">Ouverture prochaine</div>
         </div>
-        <div class="discord-tag">Bientôt</div>
+        <div class="discord-tag">Bient&#244;t</div>
       </div>
-      <div class="copy">© 2026 Louisnny — All rights reserved</div>
+      <div class="copy">&copy; 2026 Louisnny &mdash; All rights reserved</div>
     </div>
 
   </div>
