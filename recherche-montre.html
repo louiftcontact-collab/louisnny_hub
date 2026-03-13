@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recherche Montre — Louisnny Watches</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:#080808; --surface:#111111; --border:rgba(255,255,255,0.07);
+      --accent:#FF5C00; --accent2:#FFB800; --white:#F0EDE8; --muted:#555; --muted2:#333;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--white);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
+    .grid-bg{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:80px 80px;}
+    .glow{position:fixed;pointer-events:none;z-index:0;border-radius:50%;filter:blur(120px);opacity:.18;}
+    .glow-1{width:600px;height:600px;background:var(--accent);top:-200px;right:-100px;animation:gm1 12s ease-in-out infinite alternate;}
+    .glow-2{width:500px;height:500px;background:var(--accent2);bottom:-150px;left:-100px;animation:gm2 10s ease-in-out infinite alternate;}
+    @keyframes gm1{from{transform:translate(0,0)}to{transform:translate(-80px,60px)}}
+    @keyframes gm2{from{transform:translate(0,0)}to{transform:translate(60px,-80px)}}
+    .wrap{max-width:1100px;margin:0 auto;padding:0 40px;position:relative;z-index:1;}
+
+    nav{display:flex;justify-content:space-between;align-items:center;padding:28px 0;border-bottom:1px solid var(--border);opacity:0;animation:rise .7s .1s forwards;}
+    .nav-logo{font-size:13px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;}
+    .nav-logo span{color:var(--accent);}
+    .nav-badge{font-size:11px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--border);padding:6px 16px;border-radius:100px;color:var(--muted);}
+
+    /* HERO */
+    .hero{padding:80px 0 60px;}
+    .hero-eyebrow{display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:32px;opacity:0;animation:rise .7s .2s forwards;}
+    .hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--accent);}
+    .hero-title{font-family:'Instrument Serif',serif;font-size:clamp(52px,9vw,110px);line-height:.92;font-weight:400;letter-spacing:-.03em;margin-bottom:32px;opacity:0;animation:rise .8s .3s forwards;}
+    .hero-title .line2{display:block;padding-left:100px;font-style:italic;color:transparent;-webkit-text-stroke:1px rgba(240,237,232,.3);}
+    .hero-title .acc{color:var(--accent);-webkit-text-stroke:0;}
+    .hero-sub{font-family:'Instrument Serif',serif;font-size:18px;line-height:1.7;color:rgba(240,237,232,.55);font-style:italic;max-width:600px;opacity:0;animation:rise .7s .45s forwards;}
+
+    /* TICKER */
+    .ticker-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 0;margin-bottom:0;opacity:0;animation:rise .6s .55s forwards;}
+    .ticker-track{display:flex;animation:ticker 26s linear infinite;white-space:nowrap;}
+    .ticker-item{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:0 40px;}
+    .ticker-item span{color:var(--accent);margin-right:10px;}
+    @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    /* SECTION HEADERS */
+    .sec-header{display:flex;justify-content:space-between;align-items:center;padding:56px 0 24px;}
+    .sec-num{font-size:11px;color:var(--muted);letter-spacing:.1em;}
+    .sec-title{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);}
+
+    /* HOW IT WORKS */
+    .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--border);border-radius:16px;overflow:hidden;opacity:0;animation:rise .7s .6s forwards;}
+    .how-item{background:var(--surface);padding:32px 28px;display:flex;flex-direction:column;gap:12px;}
+    .how-num{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);}
+    .how-title{font-size:16px;font-weight:700;color:var(--white);}
+    .how-desc{font-size:12px;color:var(--muted);line-height:1.7;letter-spacing:.03em;}
+
+    /* FORM */
+    .form-wrap{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:52px;opacity:0;animation:rise .7s .7s forwards;}
+    .form-section-title{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:32px;}
+    .fg{display:flex;flex-direction:column;gap:8px;}
+    .fg.full{grid-column:1/-1;}
+    .fg label{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);}
+    .fg input,.fg textarea,.fg select{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:15px 18px;font-family:'Syne',sans-serif;font-size:13px;color:var(--white);outline:none;resize:none;transition:border-color .3s;appearance:none;-webkit-appearance:none;width:100%;}
+    .fg select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23555' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 18px center;padding-right:44px;}
+    .fg select option{background:var(--surface);color:var(--white);}
+    .fg input::placeholder,.fg textarea::placeholder{color:var(--muted2);}
+    .fg input:focus,.fg textarea:focus,.fg select:focus{border-color:rgba(255,92,0,.5);}
+    .fg textarea{min-height:100px;}
+
+    /* RADIO/CHECKBOX GROUPS */
+    .radio-group{display:flex;flex-wrap:wrap;gap:10px;}
+    .radio-label{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-size:12px;color:rgba(240,237,232,.7);cursor:none;transition:border-color .3s,color .3s;user-select:none;}
+    .radio-label:hover{border-color:rgba(255,92,0,.4);color:var(--white);}
+    .radio-label input{display:none;}
+    .radio-label.selected{border-color:var(--accent);color:var(--accent);}
+    .radio-dot{width:6px;height:6px;border-radius:50%;background:var(--muted);transition:background .2s;}
+    .radio-label.selected .radio-dot{background:var(--accent);}
+
+    /* FOOTER FORM */
+    .form-footer{display:flex;align-items:center;justify-content:space-between;margin-top:32px;flex-wrap:wrap;gap:16px;padding-top:24px;border-top:1px solid var(--border);}
+    .form-note{font-size:11px;color:var(--muted);line-height:1.6;max-width:380px;}
+    .btn-send{display:flex;align-items:center;gap:12px;background:var(--accent);color:#fff;border:none;border-radius:100px;padding:16px 36px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s;}
+    .btn-send::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.15);transform:translateX(-100%) skewX(-15deg);transition:transform .5s ease;}
+    .btn-send:hover::before{transform:translateX(120%) skewX(-15deg);}
+    .btn-send:hover{transform:scale(1.04);box-shadow:0 8px 40px rgba(255,92,0,.35);}
+    .btn-arr{transition:transform .3s;}
+    .btn-send:hover .btn-arr{transform:translateX(4px);}
+
+    .success-msg{display:none;background:rgba(255,92,0,.08);border:1px solid rgba(255,92,0,.25);border-radius:10px;padding:14px 20px;font-size:12px;color:var(--accent);text-align:center;letter-spacing:.06em;margin-top:16px;width:100%;}
+
+    footer{border-top:1px solid var(--border);padding:32px 0;display:flex;justify-content:space-between;align-items:center;opacity:0;animation:rise .7s 1s forwards;}
+    .foot-left{font-size:12px;color:var(--muted);}
+    .foot-right{font-family:'Instrument Serif',serif;font-size:15px;font-style:italic;color:var(--muted);}
+
+    @keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+    @media(max-width:680px){
+      .wrap{padding:0 20px;}
+      .hero-title .line2{padding-left:0;}
+      .how-grid{grid-template-columns:1fr;}
+      .form-grid{grid-template-columns:1fr;}
+      .form-wrap{padding:28px 20px;}
+      .form-footer{flex-direction:column;align-items:flex-start;}
+      footer{flex-direction:column;gap:12px;}
+    }
+  </style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<div class="wrap">
+  <nav>
+    <div class="nav-logo">Louisnny<span>.</span>Watches</div>
+    <div class="nav-badge">Recherche Privée</div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-eyebrow">Service de recherche horlogère</div>
+    <h1 class="hero-title">
+      Votre montre,<br>
+      <span class="line2"><span class="acc">introuvable</span> ailleurs.</span>
+    </h1>
+    <p class="hero-sub">
+      Grâce à mon réseau de fournisseurs, je localise les pièces rares et les références recherchées — discrètement, rapidement, au juste prix.
+    </p>
+  </section>
+</div>
+
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item"><span>◆</span>Rolex</span>
+    <span class="ticker-item"><span>◆</span>Patek Philippe</span>
+    <span class="ticker-item"><span>◆</span>Audemars Piguet</span>
+    <span class="ticker-item"><span>◆</span>Richard Mille</span>
+    <span class="ticker-item"><span>◆</span>Cartier</span>
+    <span class="ticker-item"><span>◆</span>Références rares</span>
+    <span class="ticker-item"><span>◆</span>Réseau privé</span>
+    <span class="ticker-item"><span>◆</span>Réponse sous 24–48h</span>
+    <span class="ticker-item"><span>◆</span>Rolex</span>
+    <span class="ticker-item"><span>◆</span>Patek Philippe</span>
+    <span class="ticker-item"><span>◆</span>Audemars Piguet</span>
+    <span class="ticker-item"><span>◆</span>Richard Mille</span>
+    <span class="ticker-item"><span>◆</span>Cartier</span>
+    <span class="ticker-item"><span>◆</span>Références rares</span>
+    <span class="ticker-item"><span>◆</span>Réseau privé</span>
+    <span class="ticker-item"><span>◆</span>Réponse sous 24–48h</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="sec-header"><span class="sec-num">01</span><span class="sec-title">Comment ça fonctionne</span></div>
+  <div class="how-grid">
+    <div class="how-item">
+      <div class="how-num">Étape 01</div>
+      <div class="how-title">Remplissez le formulaire</div>
+      <div class="how-desc">Décrivez la montre que vous recherchez avec le plus de détails possible — marque, référence, état, budget.</div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">Étape 02</div>
+      <div class="how-title">J'active mon réseau</div>
+      <div class="how-desc">Je consulte mes fournisseurs et contacts privés pour localiser la pièce dans les meilleures conditions.</div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">Étape 03</div>
+      <div class="how-title">Je vous reviens sous 48h</div>
+      <div class="how-desc">Vous recevez les disponibilités trouvées, avec photos et conditions. Vous décidez en toute liberté.</div>
+    </div>
+  </div>
+
+  <div class="sec-header"><span class="sec-num">02</span><span class="sec-title">Votre demande</span></div>
+  <div class="form-wrap">
+
+    <!-- SECTION A : Vos coordonnées -->
+    <div class="form-section-title">Vos coordonnées</div>
+    <div class="form-grid">
+      <div class="fg">
+        <label>Prénom & Nom *</label>
+        <input type="text" id="f-nom" placeholder="Jean Dupont"/>
+      </div>
+      <div class="fg">
+        <label>Email *</label>
+        <input type="email" id="f-email" placeholder="votre@email.com"/>
+      </div>
+      <div class="fg">
+        <label>Téléphone (WhatsApp de préférence) *</label>
+        <input type="tel" id="f-tel" placeholder="+33 6 00 00 00 00"/>
+      </div>
+      <div class="fg">
+        <label>Pays & Ville *</label>
+        <input type="text" id="f-ville" placeholder="France — Paris"/>
+      </div>
+    </div>
+
+    <!-- SECTION B : La montre -->
+    <div class="form-section-title">La montre recherchée</div>
+    <div class="form-grid">
+      <div class="fg">
+        <label>Marque *</label>
+        <select id="f-marque">
+          <option value="" disabled selected>Sélectionner une marque</option>
+          <option>Rolex</option>
+          <option>Patek Philippe</option>
+          <option>Audemars Piguet</option>
+          <option>Richard Mille</option>
+          <option>Cartier</option>
+          <option>Omega</option>
+          <option>Breitling</option>
+          <option>IWC</option>
+          <option>Hublot</option>
+          <option>Vacheron Constantin</option>
+          <option>A. Lange &amp; Söhne</option>
+          <option>Jaeger-LeCoultre</option>
+          <option>Panerai</option>
+          <option>Seiko (édition limitée)</option>
+          <option>Autre</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Référence ou modèle (si connu)</label>
+        <input type="text" id="f-ref" placeholder="Ex : Daytona 116500LN cadran blanc"/>
+      </div>
+      <div class="fg full">
+        <label>Description détaillée *</label>
+        <textarea id="f-desc" placeholder="Couleur du cadran, bracelet (métal / cuir / caoutchouc), taille, complications (date, GMT, chrono...), couleur de boîte, etc."></textarea>
+      </div>
+    </div>
+
+    <!-- SECTION C : État -->
+    <div class="form-section-title">État & Préférences</div>
+    <div class="form-grid">
+      <div class="fg full">
+        <label>État accepté *</label>
+        <div class="radio-group" id="rg-etat">
+          <div class="radio-label" data-val="Neuve uniquement (avec papiers et boîte)"><span class="radio-dot"></span>🆕 Neuve uniquement</div>
+          <div class="radio-label" data-val="Occasion en excellent état"><span class="radio-dot"></span>✅ Occasion excellent état</div>
+          <div class="radio-label" data-val="Les deux, selon l'opportunité"><span class="radio-dot"></span>🔄 Les deux</div>
+        </div>
+      </div>
+      <div class="fg full">
+        <label>Papiers & boîte d'origine *</label>
+        <div class="radio-group" id="rg-papiers">
+          <div class="radio-label" data-val="Indispensables"><span class="radio-dot"></span>Indispensables</div>
+          <div class="radio-label" data-val="Souhaitable mais pas bloquant"><span class="radio-dot"></span>Souhaitable</div>
+          <div class="radio-label" data-val="Non, peu importe"><span class="radio-dot"></span>Peu importe</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION D : Budget & Délai -->
+    <div class="form-section-title">Budget & Délai</div>
+    <div class="form-grid">
+      <div class="fg">
+        <label>Budget approximatif *</label>
+        <select id="f-budget">
+          <option value="" disabled selected>Sélectionner une fourchette</option>
+          <option>Moins de 5 000 €</option>
+          <option>5 000 € – 15 000 €</option>
+          <option>15 000 € – 30 000 €</option>
+          <option>30 000 € – 60 000 €</option>
+          <option>60 000 € – 100 000 €</option>
+          <option>Plus de 100 000 €</option>
+          <option>Je préfère ne pas indiquer</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Délai souhaité *</label>
+        <select id="f-delai">
+          <option value="" disabled selected>Sélectionner un délai</option>
+          <option>Le plus tôt possible</option>
+          <option>Dans le mois</option>
+          <option>Dans les 3 prochains mois</option>
+          <option>Pas d'urgence, j'attends la bonne pièce</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- SECTION E : Profil -->
+    <div class="form-section-title">Informations complémentaires</div>
+    <div class="form-grid">
+      <div class="fg full">
+        <label>Vous êtes… *</label>
+        <div class="radio-group" id="rg-profil">
+          <div class="radio-label" data-val="Un particulier (usage personnel)"><span class="radio-dot"></span>Particulier</div>
+          <div class="radio-label" data-val="Un collectionneur"><span class="radio-dot"></span>Collectionneur</div>
+          <div class="radio-label" data-val="Un professionnel / revendeur"><span class="radio-dot"></span>Professionnel / Revendeur</div>
+        </div>
+      </div>
+      <div class="fg full">
+        <label>Informations ou questions supplémentaires</label>
+        <textarea id="f-plus" placeholder="Tout détail qui pourrait aider ma recherche..."></textarea>
+      </div>
+    </div>
+
+    <div class="success-msg" id="ok">✦ Ouverture de votre application mail avec votre demande pré-remplie…</div>
+
+    <div class="form-footer">
+      <span class="form-note">Votre demande est confidentielle. Je reviens vers vous sous 24 à 48h avec les disponibilités trouvées dans mon réseau.</span>
+      <button class="btn-send" onclick="sendForm()">Envoyer ma demande <span class="btn-arr">›</span></button>
+    </div>
+  </div>
+
+  <footer>
+    <span class="foot-left">&copy; 2026 — Louisnny Watches</span>
+    <span class="foot-right">L'heure, c'est l'art.</span>
+  </footer>
+</div>
+
+<script>
+  /* RADIO GROUPS */
+  document.querySelectorAll('.radio-group').forEach(function(group){
+    group.querySelectorAll('.radio-label').forEach(function(label){
+      label.addEventListener('click',function(){
+        group.querySelectorAll('.radio-label').forEach(function(l){l.classList.remove('selected');});
+        label.classList.add('selected');
+      });
+    });
+  });
+
+  function getRadio(id){
+    var sel=document.querySelector('#'+id+' .radio-label.selected');
+    return sel ? sel.getAttribute('data-val') : '';
+  }
+
+  /* SEND */
+  function sendForm(){
+    var nom    = document.getElementById('f-nom').value.trim();
+    var email  = document.getElementById('f-email').value.trim();
+    var tel    = document.getElementById('f-tel').value.trim();
+    var ville  = document.getElementById('f-ville').value.trim();
+    var marque = document.getElementById('f-marque').value;
+    var ref    = document.getElementById('f-ref').value.trim();
+    var desc   = document.getElementById('f-desc').value.trim();
+    var etat   = getRadio('rg-etat');
+    var papiers= getRadio('rg-papiers');
+    var budget = document.getElementById('f-budget').value;
+    var delai  = document.getElementById('f-delai').value;
+    var profil = getRadio('rg-profil');
+    var plus   = document.getElementById('f-plus').value.trim();
+
+    if(!nom||!email||!tel||!marque||!desc||!etat||!papiers||!budget||!delai||!profil){
+      alert('Merci de remplir tous les champs obligatoires (*).');
+      return;
+    }
+
+    var subject = encodeURIComponent('Recherche montre — ' + marque + ' — ' + nom);
+    var body = encodeURIComponent(
+      '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+      '  DEMANDE DE RECHERCHE MONTRE\n' +
+      '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
+
+      '[ COORDONNÉES ]\n' +
+      'Nom        : ' + nom + '\n' +
+      'Email      : ' + email + '\n' +
+      'Téléphone  : ' + tel + '\n' +
+      'Lieu       : ' + ville + '\n\n' +
+
+      '[ MONTRE RECHERCHÉE ]\n' +
+      'Marque     : ' + marque + '\n' +
+      'Référence  : ' + (ref || 'Non précisée') + '\n' +
+      'Description: ' + desc + '\n\n' +
+
+      '[ ÉTAT & PRÉFÉRENCES ]\n' +
+      'État       : ' + etat + '\n' +
+      'Papiers    : ' + papiers + '\n\n' +
+
+      '[ BUDGET & DÉLAI ]\n' +
+      'Budget     : ' + budget + '\n' +
+      'Délai      : ' + delai + '\n\n' +
+
+      '[ PROFIL ]\n' +
+      'Type       : ' + profil + '\n' +
+      (plus ? '\n[ INFORMATIONS COMPLÉMENTAIRES ]\n' + plus + '\n' : '') +
+
+      '\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━'
+    );
+
+    window.location.href = 'mailto:louift.contact@gmail.com?subject=' + subject + '&body=' + body;
+
+    var ok = document.getElementById('ok');
+    ok.style.display = 'block';
+    setTimeout(function(){ ok.style.display='none'; }, 5000);
+  }
+</script>
+</body>
+</html>
